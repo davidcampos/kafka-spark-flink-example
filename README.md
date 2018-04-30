@@ -1,7 +1,8 @@
-Kafka streaming with Spark and Flink Example
+Kafka streaming with Spark and Flink example
 ===
 Example project on how to use [Apache Kafka](https://kafka.apache.org) and streaming consumers, namely:
 - Producer sending random number words to Kafka
+- Consumer using Kafka to output received messages
 - Streaming Consumer using [Apache Spark](https://spark.apache.org) to count words occurrences
 - Streaming Consumer using [Apache Flink](https://flink.apache.org) to count words occurrences 
 
