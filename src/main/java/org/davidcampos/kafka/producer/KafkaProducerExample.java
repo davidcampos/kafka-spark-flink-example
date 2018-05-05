@@ -25,10 +25,11 @@ public class KafkaProducerExample {
         createTopic();
 
         String[] words = new String[]{"one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"};
-
         Random ran = new Random(System.currentTimeMillis());
 
         final Producer<String, String> producer = createProducer();
+        int EXAMPLE_PRODUCER_INTERVAL = System.getenv("EXAMPLE_PRODUCER_INTERVAL") != null ?
+                Integer.parseInt(System.getenv("EXAMPLE_PRODUCER_INTERVAL")) : 100;
 
         try {
             while (true) {
@@ -40,7 +41,7 @@ public class KafkaProducerExample {
 
                 logger.info("Sent ({}, {}) to topic {} @ {}.", uuid, word, Commons.EXAMPLE_KAFKA_TOPIC, metadata.timestamp());
 
-                Thread.sleep(100);
+                Thread.sleep(EXAMPLE_PRODUCER_INTERVAL);
             }
         } catch (InterruptedException | ExecutionException e) {
             logger.error("An error occurred.", e);
