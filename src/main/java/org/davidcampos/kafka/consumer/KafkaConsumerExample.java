@@ -17,32 +17,15 @@ public class KafkaConsumerExample {
     private static final Logger logger = LogManager.getLogger(KafkaConsumerExample.class);
 
     public static void main(final String... args) {
-
         final Consumer<String, String> consumer = createConsumer();
-
-        final int giveUp = 100;
-        int noRecordsCount = 0;
 
         while (true) {
             final ConsumerRecords<String, String> consumerRecords = consumer.poll(1000);
-
-            if (consumerRecords.count() == 0) {
-                noRecordsCount++;
-
-                if (noRecordsCount > giveUp) {
-                    break;
-                } else {
-                    continue;
-                }
-            }
-
             consumerRecords.forEach(record -> {
                 logger.info("Consumer Record:({}, {}, {}, {})", record.key(), record.value(), record.partition(), record.offset());
             });
-
             consumer.commitAsync();
         }
-        consumer.close();
     }
 
     private static Consumer<String, String> createConsumer() {
