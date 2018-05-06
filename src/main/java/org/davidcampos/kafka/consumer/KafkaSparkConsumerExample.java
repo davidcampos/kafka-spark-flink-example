@@ -27,7 +27,7 @@ public class KafkaSparkConsumerExample {
         kafkaParams.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, Commons.EXAMPLE_KAFKA_SERVER);
         kafkaParams.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         kafkaParams.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        kafkaParams.put(ConsumerConfig.GROUP_ID_CONFIG, "KafkaSparkConsumerExample");
+        kafkaParams.put(ConsumerConfig.GROUP_ID_CONFIG, "SparkConsumerGroup");
 
         //Configure Spark to listen messages in topic test
         Collection<String> topics = Arrays.asList(Commons.EXAMPLE_KAFKA_TOPIC);
