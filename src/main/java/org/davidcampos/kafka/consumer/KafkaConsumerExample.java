@@ -11,18 +11,25 @@ import org.davidcampos.kafka.commons.Commons;
 
 
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 public class KafkaConsumerExample {
     private static final Logger logger = LogManager.getLogger(KafkaConsumerExample.class);
 
     public static void main(final String... args) {
+        Map<String, Integer> counters = new HashMap<>();
         final Consumer<String, String> consumer = createConsumer();
-
         while (true) {
             final ConsumerRecords<String, String> consumerRecords = consumer.poll(1000);
             consumerRecords.forEach(record -> {
-                logger.info("Consumer Record:({}, {}, {}, {})", record.key(), record.value(), record.partition(), record.offset());
+                String word = record.value();
+
+                int count = counters.containsKey(word) ? counters.get(word) : 0;
+                counters.put(word, ++count);
+
+                logger.info("({}, {})", word, count);
             });
             consumer.commitAsync();
         }
