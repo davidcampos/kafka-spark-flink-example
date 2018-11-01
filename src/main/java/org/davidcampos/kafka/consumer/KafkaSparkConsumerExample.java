@@ -32,7 +32,7 @@ public class KafkaSparkConsumerExample {
         //Configure Spark to listen messages in topic test
         Collection<String> topics = Arrays.asList(Commons.EXAMPLE_KAFKA_TOPIC);
 
-        SparkConf conf = new SparkConf().setMaster("local[2]").setAppName("KafkaSparkConsumerExample");
+        SparkConf conf = new SparkConf().setMaster("local[2]").setAppName("SparkConsumerApplication");
 
         //Read messages in batch of 30 seconds
         JavaStreamingContext jssc = new JavaStreamingContext(conf, Durations.seconds(5));

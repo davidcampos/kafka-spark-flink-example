@@ -2,7 +2,7 @@ FROM openjdk:8u151-jdk-alpine3.7
 MAINTAINER David Campos (david.marques.campos@gmail.com)
 
 # Install Bash
-RUN apk add --no-cache bash
+RUN apk add --no-cache bash libc6-compat
 
 # Copy resources
 WORKDIR /

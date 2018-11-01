@@ -14,12 +14,14 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 public class KafkaConsumerExample {
     private static final Logger logger = LogManager.getLogger(KafkaConsumerExample.class);
 
     public static void main(final String... args) {
-        Map<String, Integer> counters = new HashMap<>();
+        ConcurrentMap<String, Integer> counters = new ConcurrentHashMap<>();
         final Consumer<String, String> consumer = createConsumer();
         while (true) {
             final ConsumerRecords<String, String> consumerRecords = consumer.poll(1000);

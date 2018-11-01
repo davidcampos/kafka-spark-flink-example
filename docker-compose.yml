@@ -49,6 +49,7 @@ services:
       EXAMPLE_KAFKA_TOPIC: "example"
       EXAMPLE_KAFKA_SERVER: "kafka:9092"
       EXAMPLE_ZOOKEEPER_SERVER: "zookeeper:32181"
+      EXAMPLE_PRODUCER_INTERVAL: 100
     networks:
       - bridge
 
