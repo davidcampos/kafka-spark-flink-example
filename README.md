@@ -1,4 +1,5 @@
 Kafka streaming with Spark and Flink example
+[![Java CI with Maven](https://github.com/Rembrant777/kafka-spark-flink-example-latest-version/actions/workflows/maven.yml/badge.svg)](https://github.com/Rembrant777/kafka-spark-flink-example-latest-version/actions/workflows/maven.yml)
 ===
 Example project on how to use [Apache Kafka](https://kafka.apache.org) and streaming consumers, namely:
 - Producer sending random number words to Kafka
