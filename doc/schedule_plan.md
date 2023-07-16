@@ -1,9 +1,10 @@
 # Project Schedule Plan
 ## Stage-0: Plan 
-1. [ ] Project Schedule Plan 
+1. [x] Project Schedule Plan 
+2. [x] Add Doc Drafts
 
 ## Stage-1: Github Action
-1. [ ] Maven Compile 
+1. [x] Maven Compile 
 2. [ ] Run Unit Test Cases 
 
 ## Stage-2: Docker Compose + Unit Test Cases
