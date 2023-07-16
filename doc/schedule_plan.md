@@ -8,7 +8,7 @@
 2. [ ] Run Unit Test Cases 
 
 ## Stage-2: Docker Compose + Unit Test Cases
-1. [ ] Kafka Cluster + Unit Test Cases + CI/CD
+1. [x] Kafka Cluster + Unit Test Cases + CI/CD
 2. [ ] Spark + Unit Test Cases + CI/CD
 3. [ ] Flink + Unit Test Cases + CI/CD
 4. [ ] Run Unit Test Cases on Dev Environments 

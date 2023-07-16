@@ -1,5 +1,23 @@
-version: '3.7'
+## kafka cluster setup up in docker compose
+# Parameters:
+## - name: CONFLUENT_PLATFORM_VERSION
+##   default: 6.2.0
+##   reference: https://hub.docker.com/u/confluentinc/
 
+# Ports:
+## - description: Major ports are exposed to host compiler
+## - zookeeper: 2181
+##      kafka_node_1: 9091
+##      kafka_node_2: 9092
+##      kafka_node_3: 9093
+##      kafka_node_4: 9094
+##      kafka_node_5: 9095
+
+# Tips:>
+# - You can set up few kafka nodes with following commands:
+#   $docker-compose up -d kafka_node_1 kafka_node_2 kafka_node_3
+
+version: '3.7'
 networks:
   bridge:
     driver: bridge
@@ -8,16 +26,50 @@ services:
   zookeeper:
     image: confluentinc/cp-zookeeper:6.2.0
     ports:
-      - 2181:2181
+      - "2181:2181"
+      - "2888:2888"
+      - "3888:3888"
+    healthcheck:
+      test: echo start | nc localhost 2181
+      interval: 10s
+      timeout: 30s
+      retries: 3
     environment:
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_INIT_LIMIT: 5
+      ZOOKEEPER_SYNC_LIMIT: 2
+      ZOOKEEPER_SERVERS: zookeeper:2888:3888
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
     networks:
       bridge:
         aliases:
           - zookeeper
-  kafka:
+  kafka_node_1:
     image: confluentinc/cp-kafka:6.2.0
+    healthcheck:
+      test: ps augwwx | egrep [S]upportedKafka
+    ports:
+      - 9091:9091
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ADVERTISED_HOST_NAME: 0.0.0.0
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9091
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      ZOOKEEPER: zookeeper:2181
+      BOOTSTRAP_SERVERS: kafka_node1:9091,kafka_node_2:9092,kafka_node_3:9093,kafka_node_4:9094,kafka_node_5:9095
+      JMX_PORT: 9999
+    networks:
+      bridge:
+        aliases:
+          - kafka
+    depends_on:
+      - zookeeper
+  kafka_node_2:
+    image: confluentinc/cp-kafka:6.2.0
+    healthcheck:
+      test: ps augwwx | egrep [S]upportedKafka
     ports:
       - 9092:9092
     environment:
@@ -26,6 +78,71 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      ZOOKEEPER: zookeeper:2181
+      BOOTSTRAP_SERVERS: kafka_node1:9091,kafka_node_2:9092,kafka_node_3:9093,kafka_node_4:9094,kafka_node_5:9095
+      JMX_PORT: 9999
+    networks:
+      bridge:
+        aliases:
+          - kafka
+    depends_on:
+      - zookeeper
+  kafka_node_3:
+    image: confluentinc/cp-kafka:6.2.0
+    healthcheck:
+      test: ps augwwx | egrep [S]upportedKafka
+    ports:
+      - 9093:9093
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ADVERTISED_HOST_NAME: 0.0.0.0
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9093
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      ZOOKEEPER: zookeeper:2181
+      BOOTSTRAP_SERVERS: kafka_node1:9091,kafka_node_2:9092,kafka_node_3:9093,kafka_node_4:9094,kafka_node_5:9095
+      JMX_PORT: 9999
+    networks:
+      bridge:
+        aliases:
+          - kafka
+    depends_on:
+      - zookeeper
+  kafka_node_4:
+    image: confluentinc/cp-kafka:6.2.0
+    healthcheck:
+      test: ps augwwx | egrep [S]upportedKafka
+    ports:
+      - 9094:9094
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ADVERTISED_HOST_NAME: 0.0.0.0
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9094
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      ZOOKEEPER: zookeeper:2181
+      BOOTSTRAP_SERVERS: kafka_node1:9091,kafka_node_2:9092,kafka_node_3:9093,kafka_node_4:9094,kafka_node_5:9095
+      JMX_PORT: 9999
+    networks:
+      bridge:
+        aliases:
+          - kafka
+    depends_on:
+      - zookeeper
+  kafka_node_5:
+    image: confluentinc/cp-kafka:6.2.0
+    healthcheck:
+      test: ps augwwx | egrep [S]upportedKafka
+    ports:
+      - 9095:9095
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ADVERTISED_HOST_NAME: 0.0.0.0
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9095
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      ZOOKEEPER: zookeeper:2181
+      BOOTSTRAP_SERVERS: kafka_node1:9091,kafka_node_2:9092,kafka_node_3:9093,kafka_node_4:9094,kafka_node_5:9095
       JMX_PORT: 9999
     networks:
       bridge:
