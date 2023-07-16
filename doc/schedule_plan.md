@@ -19,12 +19,12 @@
 3. [ ] Spark Job Chaining Design Doc 
 
 ## Stage-4: Coding + Demo Video 
-1. [ ] Coding in 
-   [ ] 1.1 Java
-   [ ] 1.2 Python 
-   [ ] 1.3 Scala 
-   [ ] 1.4 Azure + Databrick 
-   [ ] 1.5 AWS + Databrick 
+1. [ ] Coding
+   * 1.1 [ ] 1.1 Java
+   * 1.2 [ ] 1.2 Python 
+   * 1.3 [ ] 1.3 Scala
+   * 1.4 [ ] 1.4 Azure + Databrick 
+   * 1.5 [ ] 1.5 AWS + Databrick 
 2. [ ] Youtube Demo Video 
 
 ## Stage-5: Integration Test && Benchmark Test 
